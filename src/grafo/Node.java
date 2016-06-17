@@ -6,7 +6,9 @@ import java.util.LinkedList;
  * @author Jorismar
  */
 public interface Node {
-    public float getDistanceTo(Node nd);
-    public float getCoastTo(Node nd);
+    public int getID();
+    public double getPos();
+    public double getDistanceTo(Node nd);
+    public double getCostTo(Node nd);
     public LinkedList<Node> getNeighbors();
 }
