@@ -9,7 +9,7 @@ public class AStar {
     private LinkedList<AStarNode> open;
     private LinkedList<AStarNode> close;
 
-    public AStar( ) {
+    public AStar() {
         this.origin = null;
         this.destiny = null;
         this.open = new LinkedList<>();
@@ -77,9 +77,9 @@ public class AStar {
                 // Se este nó estiver na lista, verificar se o caminho atual ainda é melhor, caso não seja
                 // remova todos os filhos do seu pai na lista fechada e adicione-o como novo filho
                 if (nd.getNode() == node) {
-                    if (this.close.getLast().getCoast() + node.getCoastTo(this.close.getLast().getNode()) < nd.getCoast()) {
+                    if (this.close.getLast().getCoast() + node.getCostTo(this.close.getLast().getNode()) < nd.getCoast()) {
                         nd.setFatherID(this.close.size() - 1); // Define o novo pai desse no
-                        nd.setCoast(nd.getNode().getCoastTo(this.close.getLast().getNode())); // Custo do no para o novo pai
+                        nd.setCoast(nd.getNode().getCostTo(this.close.getLast().getNode())); // Custo do no para o novo pai
                     }
                     // Se estiver na lista, termine a busca
                     has = true;
@@ -89,11 +89,12 @@ public class AStar {
             
             // Se não estava na lista, adicione-o
             if(!has)
-                this.open.add(new AStarNode(node, this.close.size() - 1, node.getCoastTo(this.close.getLast().getNode()) + this.close.getLast().getCoast(), node.getDistanceTo(this.destiny)));
+                this.open.add(new AStarNode(node, this.close.size() - 1, node.getCostTo(this.close.getLast().getNode()) + this.close.getLast().getCoast(), node.getDistanceTo(this.destiny)));
         }
         
         // Se o último adicionado é o destino, retorne
-        if(this.destiny == this.close.getLast()) {
+        System.err.println("Found: " + this.close.getLast().getNode().getID() + " Need: " + this.destiny.getID());
+        if(this.destiny == this.close.getLast().getNode()) {
             LinkedList<Node> path = new LinkedList<>();
 
             this.close.stream().forEach(
